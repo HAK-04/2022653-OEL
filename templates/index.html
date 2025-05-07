@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Reddit World News Tracker</title>
+    <style>
+        body { font-family: sans-serif; }
+        #data-container { margin-top: 20px; }
+        .post { border: 1px solid #ccc; padding: 10px; margin-bottom: 10px; }
+        .comments { margin-top: 10px; font-size: 0.9em; color: #555; }
+    </style>
+</head>
+<body>
+    <h1>Latest World News Posts</h1>
+    <div id="data-container">
+        <p>Loading data...</p>
+    </div>
+
+    <script>
+        async function fetchData() {
+            try {
+                const response = await fetch('/data');
+                const data = await response.json();
+                const dataContainer = document.getElementById('data-container');
+                dataContainer.innerHTML = '';
+
+                if (Array.isArray(data)) {
+                    data.forEach(post => {
+                        const postDiv = document.createElement('div');
+                        postDiv.classList.add('post');
+                        postDiv.innerHTML = `
+                            <h3>${post.title}</h3>
+                            <p>Upvotes: ${post.upvotes}</p>
+                            <p>Timestamp: ${post.timestamp}</p>
+                            ${post.all_comments.length > 0 ?
+                                `<div class="comments">
+                                    <h4>Comments:</h4>
+                                    <ul>
+                                        ${post.all_comments.map(comment => `<li>${comment}</li>`).join('')}
+                                    </ul>
+                                </div>` : '<p>No comments.</p>'
+                            }
+                        `;
+                        dataContainer.appendChild(postDiv);
+                    });
+                } else {
+                    dataContainer.innerHTML = `<p>Error: Could not load data.</p>`;
+                    console.error("Data format error:", data);
+                }
+
+            } catch (error) {
+                const dataContainer = document.getElementById('data-container');
+                dataContainer.innerHTML = `<p>Error fetching data: ${error}</p>`;
+                console.error("Error fetching data:", error);
+            }
+        }
+        fetchData();
+        setInterval(fetchData, 5000);
+    </script>
+</body>
+</html>
