@@ -1,28 +1,22 @@
 {
-    "version": 2,
-    "builds": [
-      {
-        "src": "app.py",
-        "use": "@vercel/python",
-        "config": {
-          "runtime": "python3.10"
-        }
-      }
-    ],
-    "routes": [
-      {
-        "src": "/data",
-        "dest": "/api/data"
-      },
-      {
-        "src": "/",
-        "dest": "/api/"
-      }
-    ],
-    "functions": {
-      "api/app.py": {
-        "memory": 512,
-        "maxDuration": 300
+  "version": 2,
+  "builds": [
+    {
+      "src": "app.py",
+      "use": "@vercel/python",
+      "config": {
+        "runtime": "python3.10"
       }
     }
-  }
+  ],
+  "routes": [
+    {
+      "src": "/data",
+      "dest": "/api/data"
+    },
+    {
+      "src": "/",
+      "dest": "/api/"
+    }
+  ]
+}
