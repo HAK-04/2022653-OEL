@@ -12,11 +12,11 @@
   "routes": [
     {
       "src": "/data",
-      "dest": "/api/data"
+      "dest": "/data"
     },
     {
       "src": "/",
-      "dest": "/api/"
+      "dest": "/"
     }
   ]
 }
