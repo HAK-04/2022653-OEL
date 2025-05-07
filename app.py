@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, render_template
 import subprocess
 import threading
 import time
@@ -32,8 +32,7 @@ def get_data():
 
 @app.route("/", methods=["GET"])
 def index():
-    """Simple index page to indicate the service is running."""
-    return "Reddit Data Scraper is running. Access data at /data"
+    return render_template("index.html")
 
 if __name__ == "__main__":
     if not os.path.exists(DATA_FILENAME):
