@@ -1,0 +1,16 @@
+version: 1.0
+backend:
+  phases:
+    build:
+      commands:
+        - pip install -r requirements.txt
+        - python app.py &  # Run your Flask app in the background (might need a proper WSGI server like Gunicorn for production)
+frontend:
+  phases:
+    build:
+      commands:
+        # Your frontend build commands (if any)
+  artifacts:
+    baseDirectory: /
+    files:
+      - '**/*'
